@@ -3,43 +3,34 @@ package com.example.Backend.model;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "learning_plan")
-public class LearningPlan {
+@Document(collection = "learning_progress")
+@AllArgsConstructor
+@NoArgsConstructor
+public class LearningProgress {
     @Id
     private String id;
     private String userId;
     private String userName;
     private String title;
     private String description;
-    private String topics;
-    private String resources;
+    private String templateType;
+    private String status;
+    private String tutorialName;
+    private String projectName;
+    private String skillsLearned;
+    private String challenges;
+    private String nextSteps;
     private Date createdAt;
     private Date updatedAt;
     private List<Like> likes;
     private List<Comment> comments;
 
-    // Getters, setters, constructors
-    public LearningPlan() {
-    }
-
-    public LearningPlan(String id, String userId, String userName, String title, String description, String topics,
-            String resources, Date createdAt, Date updatedAt, List<Like> likes, List<Comment> comments) {
-        this.id = id;
-        this.userId = userId;
-        this.userName = userName;
-        this.title = title;
-        this.description = description;
-        this.topics = topics;
-        this.resources = resources;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.likes = likes;
-        this.comments = comments;
-    }
-
+    // Getters and setters
     public String getId() {
         return id;
     }
@@ -80,20 +71,60 @@ public class LearningPlan {
         this.description = description;
     }
 
-    public String getTopics() {
-        return topics;
+    public String getTemplateType() {
+        return templateType;
     }
 
-    public void setTopics(String topics) {
-        this.topics = topics;
+    public void setTemplateType(String templateType) {
+        this.templateType = templateType;
     }
 
-    public String getResources() {
-        return resources;
+    public String getStatus() {
+        return status;
     }
 
-    public void setResources(String resources) {
-        this.resources = resources;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTutorialName() {
+        return tutorialName;
+    }
+
+    public void setTutorialName(String tutorialName) {
+        this.tutorialName = tutorialName;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getSkillsLearned() {
+        return skillsLearned;
+    }
+
+    public void setSkillsLearned(String skillsLearned) {
+        this.skillsLearned = skillsLearned;
+    }
+
+    public String getChallenges() {
+        return challenges;
+    }
+
+    public void setChallenges(String challenges) {
+        this.challenges = challenges;
+    }
+
+    public String getNextSteps() {
+        return nextSteps;
+    }
+
+    public void setNextSteps(String nextSteps) {
+        this.nextSteps = nextSteps;
     }
 
     public Date getCreatedAt() {
@@ -127,5 +158,4 @@ public class LearningPlan {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-
 }
