@@ -230,7 +230,7 @@ const LearningPlanPage = () => {
         try {
           await deleteLearningPlan(planId, currentUser.token);
           setLearningPlans(learningPlans.filter((plan) => plan.id !== planId));
-          toast.success("Learning plan deleted");
+          toast.success("Learning plan delete sucessfully");
         } catch (error) {
           console.error("Error deleting learning plan:", error);
           toast.error("Failed to delete learning plan");
