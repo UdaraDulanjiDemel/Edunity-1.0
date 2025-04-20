@@ -8,4 +8,5 @@ public interface NotificationRepository extends MongoRepository<Notification, St
     List<Notification> findByUserIdOrderByCreatedAtDesc(String userId);
 
     List<Notification> findByUserIdAndReadFalse(String userId);
-}
+} 
+/
