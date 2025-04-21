@@ -72,10 +72,10 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Add a comment to a post
+
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<Post> addComment(@PathVariable String postId, @RequestBody Comment comment) {
-        Post updatedPost = postService.addComment(postId, comment);
+    public ResponseEntity<Post> addComments(@PathVariable String postId, @RequestBody Comment comment) {
+        Post updatedPost = postService.addComments(postId, comment);
         return new ResponseEntity<>(updatedPost, HttpStatus.CREATED);
     }
   
