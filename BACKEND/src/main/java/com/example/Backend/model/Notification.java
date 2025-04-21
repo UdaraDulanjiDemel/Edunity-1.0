@@ -79,7 +79,17 @@ public class Notification {
         this.message = message;
     }
 
-    
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
