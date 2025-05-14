@@ -21,24 +21,6 @@ const UserAvatar = ({ src, alt, name, size = "h-10 w-10", className = "" }) => {
     return "text-xs";
   };
 
-  const baseClasses = `rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-400 to-indigo-500 ${size} ${className}`;
-
-  return (
-    <div className={baseClasses}>
-      {src && !imageError ? (
-        <img
-          src={src}
-          alt={alt || name || "User"}
-          className="h-full w-full object-cover"
-          onError={handleImageError}
-        />
-      ) : (
-        <span className={`font-bold text-white ${getTextSize()}`}>
-          {getInitial()}
-        </span>
-      )}
-    </div>
-  );
-};
+ 
 
 export default UserAvatar;
