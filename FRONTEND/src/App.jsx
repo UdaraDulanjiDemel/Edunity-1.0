@@ -52,7 +52,25 @@ function App() {
         />
         <Route path="/oauth-success" element={<OAuthSuccessPage />} />
 
-        
+        {/* protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          {/* default route redirects to skill sharing feed */}
+          <Route
+            path="/"
+            element={
+              <MainLayout activeTab="feed">
+                <SkillSharingFeed />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/progress"
+            element={
+              <MainLayout activeTab="progress">
+                <LearningProgressPage />
+              </MainLayout>
+            }
+          />
           <Route
             path="/plans"
             element={
