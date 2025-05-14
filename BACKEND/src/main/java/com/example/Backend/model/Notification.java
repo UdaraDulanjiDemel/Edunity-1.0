@@ -67,31 +67,4 @@ public class Notification {
         return triggerUserId;
     }
 
-    public void setTriggerUserId(String triggerUserId) {
-        this.triggerUserId = triggerUserId;
-    }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public boolean isRead() {
-        return read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-}
