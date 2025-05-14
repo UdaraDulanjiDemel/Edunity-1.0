@@ -66,7 +66,11 @@ public class PostController {
     }
 
     // Delete a post
-    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable String id) {
+        postService.deletePost(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
     @PostMapping("/{postId}/comments")
@@ -75,14 +79,7 @@ public class PostController {
         return new ResponseEntity<>(updatedPost, HttpStatus.CREATED);
     }
   
-    @PutMapping("/{postId}/comments/{commentId}")
-    public ResponseEntity<Post> updateComment(
-            @PathVariable String postId,
-            @PathVariable String commentId,
-            @RequestBody Comment comment) {
-        Post updatedPost = postService.updateComment(postId, commentId, comment);
-        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
-    }
+    
 
 
     @DeleteMapping("/{postId}/comments/{commentId}")
