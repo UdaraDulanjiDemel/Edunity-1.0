@@ -43,5 +43,11 @@ public class NotificationService {
         return notificationRepository.findByUserIdAndReadFalse(userId);
     }
 
-
+    public void markNotificationAsRead(String notificationId) {
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
+        notification.setRead(true);
+        notificationRepository.save(notification);
+    }
+}
 /
