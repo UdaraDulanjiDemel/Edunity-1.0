@@ -231,7 +231,29 @@ const MainLayout = ({ children, activeTab }) => {
                     </div>
                   </motion.div>
 
-                 
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 1.2 }}
+                  >
+                    <div className="flex justify-between mb-1">
+                      <span className="text-sm font-medium text-gray-700">
+                        Completed Courses
+                      </span>
+                      <span className="text-sm font-medium text-blue-600">
+                        12
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <motion.div
+                        className="bg-blue-600 h-2 rounded-full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "60%" }}
+                        transition={{ duration: 1, delay: 1.3 }}
+                      ></motion.div>
+                    </div>
+                  </motion.div>
+
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
