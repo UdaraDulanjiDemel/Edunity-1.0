@@ -50,13 +50,7 @@ const NotificationPage = ({ userId }) => {
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Notifications</h1>
 
-      <input
-        type="text"
-        placeholder="Search notifications..."
-        className="w-full mb-6 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      
 
       <div className="space-y-3">
         {filteredNotifications.length === 0 ? (
