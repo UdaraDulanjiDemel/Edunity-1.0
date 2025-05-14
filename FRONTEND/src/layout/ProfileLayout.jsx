@@ -19,24 +19,7 @@ const ProfileLayout = ({
   const { currentUser } = useAuth();
   const [isAnimated, setIsAnimated] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setIsAnimated(true);
-    }
-  }, [isLoading]);
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        {/* <Header /> */}
-        <div className="max-w-6xl mx-auto px-4 pt-20 pb-10">
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
+  
         </div>
       </div>
     );
