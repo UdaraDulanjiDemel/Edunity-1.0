@@ -40,7 +40,7 @@ const NotificationPage = ({ userId }) => {
     fetchNotifications();
   }, []);
 
-  const filteredNotifications = notifications.filter((notif) =>
+  const filteredNotifications = notifications.filter((notif) =>      //notifications filering logic
     notif.message.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

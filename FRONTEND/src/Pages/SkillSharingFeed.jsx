@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 const SkillSharingFeed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");  // search queries 
   const [showComments, setShowComments] = useState({});
   const [editingPost, setEditingPost] = useState(null);
   const { modalState, openModal, closeModal } = useConfirmModal();
@@ -48,7 +48,7 @@ const SkillSharingFeed = () => {
     }
   };
 
-    const filteredPosts = posts.filter((post) =>
+    const filteredPosts = posts.filter((post) =>    // filtering logic
     post.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -205,7 +205,7 @@ const SkillSharingFeed = () => {
       <CreatePostForm onPostCreated={handlePostCreated} />
 
       
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-4">      //create seach bar
         <input
           type="text"
           placeholder="Search posts..."
