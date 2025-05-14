@@ -92,7 +92,7 @@ public class PostController {
     }
 
  
-    @PostMapping("/{postId}/like")
+    @PostMapping("/{postId}/likes")
     public ResponseEntity<Post> addLike(@PathVariable String postId, @RequestBody Like like) {
         Post updatedPost = postService.addLike(postId, like);
         return new ResponseEntity<>(updatedPost, HttpStatus.CREATED);
