@@ -15,7 +15,7 @@ const ProfileLayout = ({
   totalPostCount = 0,
 }) => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  useAuth();
   const [isAnimated, setIsAnimated] = useState(false);
 
   useEffect(() => {
