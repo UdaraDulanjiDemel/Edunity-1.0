@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Mail, MapPin, Calendar } from "lucide-react";
+import Header from "../components/Header";
 import { useAuth } from "../context/auth";
 import UserAvatar from "../components/UserAvatar";
 
@@ -15,7 +16,7 @@ const ProfileLayout = ({
   totalPostCount = 0,
 }) => {
   const navigate = useNavigate();
-  useAuth();
+  const { currentUser } = useAuth();
   const [isAnimated, setIsAnimated] = useState(false);
 
   useEffect(() => {
@@ -47,13 +48,23 @@ const ProfileLayout = ({
 
       {/* Profile Header with Cover and Avatar */}
       <div className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 h-72 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
-        <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10"></div>
+        {/* Remove black overlay and add animated gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 via-indigo-500/30 to-purple-500/30 animate-gradient"></div>
+        
+        {/* Add animated pattern */}
+        <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20 animate-pulse"></div>
+        
+        {/* Add floating shapes */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-indigo-400/20 rounded-full blur-xl animate-float-delayed"></div>
+          <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-purple-400/20 rounded-full blur-xl animate-float-slow"></div>
+        </div>
+
         <div className="max-w-6xl mx-auto px-4 h-full relative">
           <button
             onClick={goBack}
-            className="absolute left-4 top-4 z-10 p-2.5 bg-white bg-opacity-90 rounded-full hover:bg-opacity-100 transition-all text-gray-800 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm"
+            className="absolute left-4 top-4 z-10 p-2.5 bg-white/90 rounded-full hover:bg-white transition-all text-gray-800 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm"
           >
             <ArrowLeft size={20} />
           </button>
@@ -63,7 +74,7 @@ const ProfileLayout = ({
       <div className="max-w-6xl mx-auto px-4 -mt-32 relative">
         {/* Main Content */}
         <motion.div
-          className="bg-white bg-opacity-95 backdrop-blur-lg rounded-2xl shadow-xl border border-white border-opacity-30 p-8 mb-8"
+          className="bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl border border-white/30 p-8 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isAnimated ? 1 : 0, y: isAnimated ? 0 : 20 }}
           transition={{ duration: 0.5 }}
@@ -71,13 +82,13 @@ const ProfileLayout = ({
           {/* Profile Avatar and Top Info */}
           <div className="flex flex-col md:flex-row md:items-end">
             <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-8">
-              {/* Avatar */}
+              {/* Avatar with enhanced glow effect */}
               <motion.div
                 className="border-4 border-white shadow-xl -mt-36 mb-4 md:mb-0 relative z-10 rounded-full transform hover:scale-105 transition-transform duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 blur-sm"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-30 blur-xl animate-pulse"></div>
                 <UserAvatar
                   src={profileUser?.profileImage}
                   alt={profileUser?.name}
