@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mail, MapPin, Calendar } from "lucide-react";
 import Header from "../components/Header";
 import { useAuth } from "../context/auth";
 import UserAvatar from "../components/UserAvatar";
@@ -47,56 +47,91 @@ const ProfileLayout = ({
       {/* <Header /> */}
 
       {/* Profile Header with Cover and Avatar */}
-      <div className="w-full bg-gradient-to-r from-blue-400 to-indigo-500 h-48 relative">
+      <div className="w-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 h-72 relative overflow-hidden">
+        {/* Remove black overlay and add animated gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 via-indigo-500/30 to-purple-500/30 animate-gradient"></div>
+        
+        {/* Add animated pattern */}
+        <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-20 animate-pulse"></div>
+        
+        {/* Add floating shapes */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-xl animate-float"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-indigo-400/20 rounded-full blur-xl animate-float-delayed"></div>
+          <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-purple-400/20 rounded-full blur-xl animate-float-slow"></div>
+        </div>
+
         <div className="max-w-6xl mx-auto px-4 h-full relative">
           <button
             onClick={goBack}
-            className="absolute left-4 top-4 z-10 p-2 bg-white bg-opacity-70 rounded-full hover:bg-opacity-100 transition-all text-gray-800 cursor-pointer"
+            className="absolute left-4 top-4 z-10 p-2.5 bg-white/90 rounded-full hover:bg-white transition-all text-gray-800 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm"
           >
             <ArrowLeft size={20} />
           </button>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 -mt-16 relative">
+      <div className="max-w-6xl mx-auto px-4 -mt-32 relative">
         {/* Main Content */}
         <motion.div
-          className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-6 mb-6"
+          className="bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl border border-white/30 p-8 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isAnimated ? 1 : 0, y: isAnimated ? 0 : 20 }}
           transition={{ duration: 0.5 }}
         >
           {/* Profile Avatar and Top Info */}
           <div className="flex flex-col md:flex-row md:items-end">
-            <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-6">
-              {/* Avatar */}
-              <div className="border-4 border-white shadow-md -mt-20 mb-4 md:mb-0 relative z-10 rounded-full">
+            <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-8">
+              {/* Avatar with enhanced glow effect */}
+              <motion.div
+                className="border-4 border-white shadow-xl -mt-36 mb-4 md:mb-0 relative z-10 rounded-full transform hover:scale-105 transition-transform duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-30 blur-xl animate-pulse"></div>
                 <UserAvatar
                   src={profileUser?.profileImage}
                   alt={profileUser?.name}
                   name={profileUser?.name}
-                  size="h-32 w-32"
+                  size="h-44 w-44"
                   className="bg-white"
                 />
-              </div>
+              </motion.div>
 
               <div className="text-center md:text-left flex-grow">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-800">
+                    <h1 className="text-4xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                       {profileUser?.name}
                     </h1>
-                    <p className="text-gray-600">{profileUser?.email}</p>
+                    <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-600">
+                      <div className="flex items-center space-x-2">
+                        <Mail size={16} className="text-blue-500" />
+                        <p className="text-lg">{profileUser?.email}</p>
+                      </div>
+                      {profileUser?.location && (
+                        <div className="flex items-center space-x-2">
+                          <MapPin size={16} className="text-blue-500" />
+                          <p className="text-lg">{profileUser.location}</p>
+                        </div>
+                      )}
+                      {profileUser?.joinDate && (
+                        <div className="flex items-center space-x-2">
+                          <Calendar size={16} className="text-blue-500" />
+                          <p className="text-lg">Joined {new Date(profileUser.joinDate).toLocaleDateString()}</p>
+                        </div>
+                      )}
+                    </div>
 
                     {profileUser?.bio && (
-                      <p className="mt-2 text-gray-700 max-w-xl">
+                      <p className="mt-4 text-gray-700 max-w-xl text-lg leading-relaxed">
                         {profileUser.bio}
                       </p>
                     )}
                   </div>
 
                   {/* Action buttons passed from ProfilePage */}
-                  <div className="mt-4 md:mt-0 flex justify-center md:justify-end space-x-2">
+                  <div className="mt-6 md:mt-0 flex justify-center md:justify-end space-x-3">
                     {actionButtons}
                   </div>
                 </div>
@@ -104,48 +139,58 @@ const ProfileLayout = ({
             </div>
           </div>
 
-          {/* Stats Row - Changed Links to buttons */}
-          <div className="mt-6 grid grid-cols-3 gap-4 border-t border-gray-200 pt-4">
-            <button className="flex flex-col items-center py-2 hover:bg-white hover:bg-opacity-50 rounded-lg transition-colors">
-              <span className="text-lg font-bold text-gray-800">
+          {/* Stats Row */}
+          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-gray-200 pt-8">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col items-center py-4 hover:bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl transition-all duration-300 group"
+            >
+              <span className="text-3xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                 {totalPostCount || 0}
               </span>
-              <span className="text-sm text-gray-600">Posts</span>
-            </button>
+              <span className="text-sm text-gray-600 font-medium mt-1">Posts</span>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onShowFollowers}
-              className="flex flex-col items-center py-2 hover:bg-white hover:bg-opacity-50 rounded-lg transition-colors cursor-pointer"
+              className="flex flex-col items-center py-4 hover:bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl transition-all duration-300 cursor-pointer group"
             >
-              <span className="text-lg font-bold text-gray-800">
+              <span className="text-3xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                 {profileUser?.followedUsers?.length || 0}
               </span>
-              <span className="text-sm text-gray-600">Followers</span>
-            </button>
+              <span className="text-sm text-gray-600 font-medium mt-1">Followers</span>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onShowFollowing}
-              className="flex flex-col items-center py-2 hover:bg-white hover:bg-opacity-50 rounded-lg transition-colors cursor-pointer"
+              className="flex flex-col items-center py-4 hover:bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl transition-all duration-300 cursor-pointer group"
             >
-              <span className="text-lg font-bold text-gray-800">
+              <span className="text-3xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                 {profileUser?.followingUsers?.length || 0}
               </span>
-              <span className="text-sm text-gray-600 ">Following</span>
-            </button>
+              <span className="text-sm text-gray-600 font-medium mt-1">Following</span>
+            </motion.button>
           </div>
 
           {/* Skills Tags */}
           {profileUser?.skills && profileUser.skills.length > 0 && (
-            <div className="mt-4 border-t border-gray-200 pt-4">
-              <p className="text-sm font-medium text-gray-700 mb-2">Skills</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-10 border-t border-gray-200 pt-8">
+              <p className="text-xl font-semibold text-gray-800 mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Skills & Expertise</p>
+              <div className="flex flex-wrap gap-3">
                 {profileUser.skills.map((skill, index) => (
-                  <span
+                  <motion.span
                     key={index}
-                    className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-5 py-2.5 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 border border-blue-200"
                   >
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>

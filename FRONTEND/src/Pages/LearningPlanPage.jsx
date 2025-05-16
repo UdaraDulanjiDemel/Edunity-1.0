@@ -230,7 +230,7 @@ const LearningPlanPage = () => {
         try {
           await deleteLearningPlan(planId, currentUser.token);
           setLearningPlans(learningPlans.filter((plan) => plan.id !== planId));
-          toast.success("Learning plan delete sucessfully");
+          toast.success("Learning plan deleted");
         } catch (error) {
           console.error("Error deleting learning plan:", error);
           toast.error("Failed to delete learning plan");
@@ -241,45 +241,48 @@ const LearningPlanPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 pb-10">
+      
       {/* Create Learning Plan Form */}
+      
       <motion.div
-        className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 mb-6 overflow-hidden"
+        className="bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-xl border border-white border-opacity-30 mb-8 overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="p-4 border-b border-gray-200 border-opacity-30">
-          <h2 className="text-xl font-semibold text-gray-800">
+        <div className="p-6 border-b border-gray-200 border-opacity-30 bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h2 className="text-2xl font-bold text-white">
             Share Your Learning Plan
           </h2>
+          <p className="text-blue-100 mt-1">Create and share your learning roadmap with the community</p>
         </div>
 
         <form
           onSubmit={handleSubmit(handlePlanSubmit)}
-          className="p-4 space-y-4"
+          className="p-6 space-y-6"
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Title*
             </label>
             <input
               type="text"
               {...register("title", { required: "Title is required" })}
               placeholder="Give your learning plan a clear title"
-              className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+              className={`w-full p-3 bg-white rounded-xl border ${
                 errors.title ? "border-red-500" : "border-gray-200"
-              } focus:ring-2 focus:ring-blue-400 focus:outline-none`}
+              } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300`}
               disabled={isSubmitting}
             />
             {errors.title && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-2 text-sm text-red-500 font-medium">
                 {errors.title.message}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Description*
             </label>
             <textarea
@@ -288,46 +291,46 @@ const LearningPlanPage = () => {
               })}
               placeholder="Describe your learning plan in detail"
               rows="4"
-              className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+              className={`w-full p-3 bg-white rounded-xl border ${
                 errors.description ? "border-red-500" : "border-gray-200"
-              } focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none`}
+              } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300 resize-none`}
               disabled={isSubmitting}
             />
             {errors.description && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-2 text-sm text-red-500 font-medium">
                 {errors.description.message}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Topics (comma-separated)
             </label>
             <input
               type="text"
               {...register("topics")}
               placeholder="e.g., JavaScript, React, UI Design"
-              className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300"
               disabled={isSubmitting}
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-2 text-xs text-gray-500">
               Add the topics you'll be covering in this learning plan
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Resources (comma-separated)
             </label>
             <textarea
               {...register("resources")}
               placeholder="e.g., https://example.com/tutorial, Book: JavaScript Basics"
               rows="3"
-              className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"
+              className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300 resize-none"
               disabled={isSubmitting}
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-2 text-xs text-gray-500">
               Add links to articles, books, courses, or other resources
             </p>
           </div>
@@ -335,18 +338,48 @@ const LearningPlanPage = () => {
           <div className="flex justify-end">
             <motion.button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 cursor-pointer"
-              whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl font-medium"
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Sharing..." : "Share Learning Plan"}
+              {isSubmitting ? (
+                <span className="flex items-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sharing...
+                </span>
+              ) : (
+                "Share Learning Plan"
+              )}
             </motion.button>
           </div>
         </form>
       </motion.div>
 
       {/* Learning Plans Feed */}
+      {/* Search Bar */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search learning plans..."
+            className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300"
+            onChange={(e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          if (searchTerm === "") {
+            fetchLearningPlans(); // Fetch all plans when search is cleared
+          } else {
+            setLearningPlans((prevPlans) =>
+              prevPlans.filter((plan) =>
+            plan.title.toLowerCase().includes(searchTerm)
+              )
+            );
+          }
+            }}
+          />
+        </div>
       {loading ? (
         <div className="flex justify-center items-center my-12">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>

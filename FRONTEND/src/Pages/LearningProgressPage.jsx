@@ -335,28 +335,29 @@ const LearningProgressPage = () => {
     <div className="max-w-2xl mx-auto px-4 pb-10">
       {/* Create Progress Update Form */}
       <motion.div
-        className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 mb-6 overflow-hidden"
+        className="bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-xl border border-white border-opacity-30 mb-8 overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="p-4 border-b border-gray-200 border-opacity-30">
-          <h2 className="text-xl font-semibold text-gray-800">
+        <div className="p-6 border-b border-gray-200 border-opacity-30 bg-gradient-to-r from-blue-600 to-indigo-600">
+          <h2 className="text-2xl font-bold text-white">
             Share Your Learning Progress
           </h2>
+          <p className="text-blue-100 mt-1">Track and share your learning journey with the community</p>
         </div>
 
-        <form onSubmit={handleSubmit(handleProgressSubmit)} className="p-4">
-          <div className="grid grid-cols-2 gap-4 mb-4">
+        <form onSubmit={handleSubmit(handleProgressSubmit)} className="p-6">
+          <div className="grid grid-cols-2 gap-6 mb-6">
             {/* Template Type */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="relative">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Progress Type
               </label>
               <select
                 value={selectedTemplate}
                 onChange={handleTemplateChange}
-                className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300"
                 disabled={isSubmitting}
               >
                 {TEMPLATES.map((template) => (
@@ -368,14 +369,14 @@ const LearningProgressPage = () => {
             </div>
 
             {/* Status */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="relative">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Status
               </label>
               <select
                 value={selectedStatus}
                 onChange={handleStatusChange}
-                className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300"
                 disabled={isSubmitting}
               >
                 {STATUS_OPTIONS.map((status) => (
@@ -388,23 +389,23 @@ const LearningProgressPage = () => {
           </div>
 
           {/* Dynamic Form Fields based on selected template */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             {currentTemplate.fields.includes("title") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Title*
                 </label>
                 <input
                   type="text"
                   {...register("title", { required: "Title is required" })}
                   placeholder="Give your progress update a clear title"
-                  className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+                  className={`w-full p-3 bg-white rounded-xl border ${
                     errors.title ? "border-red-500" : "border-gray-200"
-                  } focus:ring-2 focus:ring-blue-400 focus:outline-none`}
+                  } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300`}
                   disabled={isSubmitting}
                 />
                 {errors.title && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="mt-2 text-sm text-red-500 font-medium">
                     {errors.title.message}
                   </p>
                 )}
@@ -413,7 +414,7 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("description") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Description*
                 </label>
                 <textarea
@@ -424,13 +425,13 @@ const LearningProgressPage = () => {
                   })}
                   placeholder="Describe what you've learned or accomplished"
                   rows="3"
-                  className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+                  className={`w-full p-3 bg-white rounded-xl border ${
                     errors.description ? "border-red-500" : "border-gray-200"
-                  } focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none`}
+                  } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300 resize-none`}
                   disabled={isSubmitting}
                 />
                 {errors.description && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="mt-2 text-sm text-red-500 font-medium">
                     {errors.description.message}
                   </p>
                 )}
@@ -439,7 +440,7 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("tutorialName") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Tutorial Name*
                 </label>
                 <input
@@ -450,13 +451,13 @@ const LearningProgressPage = () => {
                       : false,
                   })}
                   placeholder="Name of the tutorial you completed"
-                  className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+                  className={`w-full p-3 bg-white rounded-xl border ${
                     errors.tutorialName ? "border-red-500" : "border-gray-200"
-                  } focus:ring-2 focus:ring-blue-400 focus:outline-none`}
+                  } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300`}
                   disabled={isSubmitting}
                 />
                 {errors.tutorialName && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="mt-2 text-sm text-red-500 font-medium">
                     {errors.tutorialName.message}
                   </p>
                 )}
@@ -465,7 +466,7 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("projectName") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Project Name*
                 </label>
                 <input
@@ -476,13 +477,13 @@ const LearningProgressPage = () => {
                       : false,
                   })}
                   placeholder="Name of your project"
-                  className={`w-full p-2 bg-white bg-opacity-70 rounded-lg border ${
+                  className={`w-full p-3 bg-white rounded-xl border ${
                     errors.projectName ? "border-red-500" : "border-gray-200"
-                  } focus:ring-2 focus:ring-blue-400 focus:outline-none`}
+                  } focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300`}
                   disabled={isSubmitting}
                 />
                 {errors.projectName && (
-                  <p className="mt-1 text-sm text-red-500">
+                  <p className="mt-2 text-sm text-red-500 font-medium">
                     {errors.projectName.message}
                   </p>
                 )}
@@ -491,14 +492,14 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("skillsLearned") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Skills Learned
                 </label>
                 <input
                   type="text"
                   {...register("skillsLearned")}
                   placeholder="Skills or technologies you learned (comma-separated)"
-                  className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300"
                   disabled={isSubmitting}
                 />
               </div>
@@ -506,14 +507,14 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("challenges") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Challenges Faced
                 </label>
                 <textarea
                   {...register("challenges")}
                   placeholder="What challenges did you encounter and how did you overcome them?"
                   rows="2"
-                  className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"
+                  className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300 resize-none"
                   disabled={isSubmitting}
                 />
               </div>
@@ -521,84 +522,114 @@ const LearningProgressPage = () => {
 
             {currentTemplate.fields.includes("nextSteps") && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Next Steps
                 </label>
                 <textarea
                   {...register("nextSteps")}
                   placeholder="What are your next steps or goals?"
                   rows="2"
-                  className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"
+                  className="w-full p-3 bg-white rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm transition-all duration-200 hover:border-blue-300 resize-none"
                   disabled={isSubmitting}
                 />
               </div>
             )}
           </div>
 
-          <div className="mt-4 flex justify-end">
+          <div className="mt-8 flex justify-end">
             <motion.button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 cursor-pointer"
-              whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl font-medium"
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Sharing..." : "Share Progress"}
+              {isSubmitting ? (
+                <span className="flex items-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sharing...
+                </span>
+              ) : (
+                "Share Progress"
+              )}
             </motion.button>
           </div>
         </form>
       </motion.div>
 
       {/* Progress Entries Feed */}
-      {loading ? (
-        <div className="flex justify-center items-center my-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        {/* Search Bar */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search progress updates..."
+            className="w-full p-2 bg-white bg-opacity-70 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            onChange={(e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          if (searchTerm === "") {
+            fetchProgressEntries(); // Fetch all entries when search query is cleared
+          } else {
+            setProgressEntries((prevEntries) =>
+              prevEntries.filter((entry) =>
+            entry.title.toLowerCase().includes(searchTerm)
+              )
+            );
+          }
+            }}
+          />
         </div>
-      ) : progressEntries.length === 0 ? (
-        <motion.div
-          className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <h3 className="text-xl font-medium text-gray-700 mb-2">
-            No progress updates yet
-          </h3>
-          <p className="text-gray-600">
-            Start sharing your learning journey with the community!
-          </p>
-        </motion.div>
-      ) : (
-        <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {progressEntries.map((entry, index) => (
-            <motion.div
-              key={entry.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
-            >
-              <LearningProgressCard
-                progress={entry}
-                currentUser={currentUser}
-                onLike={handleLike}
-                onComment={handleAddComment}
-                onDeleteComment={handleDeleteComment}
-                onUpdateComment={handleUpdateComment}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                token={currentUser?.token}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
+        {loading ? (
+          <div className="flex justify-center items-center my-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        ) : progressEntries.length === 0 ? (
+          <motion.div
+            className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-8 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h3 className="text-xl font-medium text-gray-700 mb-2">
+          No progress updates yet
+            </h3>
+            <p className="text-gray-600">
+          Start sharing your learning journey with the community!
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {progressEntries.map((entry, index) => (
+          <motion.div
+            key={entry.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 * index }}
+          >
+            <LearningProgressCard
+              progress={entry}
+              currentUser={currentUser}
+              onLike={handleLike}
+              onComment={handleAddComment}
+              onDeleteComment={handleDeleteComment}
+              onUpdateComment={handleUpdateComment}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              token={currentUser?.token}
+            />
+          </motion.div>
+            ))}
+          </motion.div>
+        )}
 
-      {/* Edit Progress Modal */}
+        {/* Edit Progress Modal */}
       {editingProgress && (
         <EditLearningProgressModal
           progressEntry={editingProgress}
