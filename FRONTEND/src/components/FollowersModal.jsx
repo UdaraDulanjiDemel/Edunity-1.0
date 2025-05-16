@@ -160,7 +160,7 @@ const FollowersModal = ({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    <Link to={`/profile/${user.id}`} target="_blank">
+                    <Link to={`/profile/${user.id}`} >
                       <div className="flex items-center justify-between">
                         <div
                           className="flex items-center space-x-3 cursor-pointer flex-grow"
