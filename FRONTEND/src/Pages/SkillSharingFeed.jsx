@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 const SkillSharingFeed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");  // search queries 
   const [showComments, setShowComments] = useState({});
   const [editingPost, setEditingPost] = useState(null);
   const { modalState, openModal, closeModal } = useConfirmModal();
@@ -46,6 +47,10 @@ const SkillSharingFeed = () => {
       setLoading(false);
     }
   };
+
+    const filteredPosts = posts.filter((post) =>    // filtering logic
+    post.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handlePostCreated = () => {
     fetchPosts();
@@ -193,11 +198,24 @@ const SkillSharingFeed = () => {
   };
 
   return (
+    
     <div className="space-y-6">
+      
       {/* Create Post Form */}
       <CreatePostForm onPostCreated={handlePostCreated} />
 
-      {/* Posts Feed */}
+      
+      <div className="flex justify-center mb-4">      //create seach bar
+        <input
+          type="text"
+          placeholder="Search posts..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+
+      
       {loading ? (
         <div className="flex justify-center items-center my-12">
           <motion.div
@@ -207,7 +225,7 @@ const SkillSharingFeed = () => {
             transition={{ duration: 0.3 }}
           ></motion.div>
         </div>
-      ) : posts.length === 0 ? (
+      ) : filteredPosts.length === 0 ? (
         <motion.div
           className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-8 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -215,15 +233,15 @@ const SkillSharingFeed = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h3 className="text-xl font-medium text-gray-700 mb-2">
-            No posts yet
+            No posts found
           </h3>
           <p className="text-gray-600">
-            Be the first to share your skills and learning progress!
+            Try searching for something else or create a new post!
           </p>
         </motion.div>
       ) : (
         <AnimatePresence>
-          {posts.map((post, index) => (
+          {filteredPosts.map((post, index) => (
             <motion.div
               key={post.id}
               className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 overflow-hidden"
