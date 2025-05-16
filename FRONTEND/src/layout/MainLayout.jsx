@@ -146,7 +146,7 @@ const MainLayout = ({ children, activeTab }) => {
             <div className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 overflow-hidden">
               <div className="p-4 border-b border-gray-100 border-opacity-40">
                 <h3 className="font-semibold text-gray-800">
-                  People You May Know
+                  People You Know 
                 </h3>
               </div>
               <div className="p-2">
