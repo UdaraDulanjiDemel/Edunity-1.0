@@ -77,7 +77,7 @@ const LearningProgressCard = ({
             />
           </div>
           <div>
-            <Link to={`/profile/${progress.userId}`} target="_blank">
+            <Link to={`/profile/${progress.userId}`} >
               <h3 className="font-medium text-gray-800 hover:underline">
                 {progress.userName}
               </h3>

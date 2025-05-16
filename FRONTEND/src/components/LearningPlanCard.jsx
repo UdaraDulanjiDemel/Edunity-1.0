@@ -153,7 +153,7 @@ const LearningPlanCard = ({
                   {resource.startsWith("http") ? (
                     <a
                       href={resource}
-                      target="_blank"
+                      
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline truncate inline-block max-w-full"
                     >
