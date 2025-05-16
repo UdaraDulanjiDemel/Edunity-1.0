@@ -15,12 +15,14 @@ import CreatePostForm from "../components/CreateSkillPostModal";
 import Comment, { CommentForm } from "../components/CommentComponent";
 import EditPostModal from "../components/EditSkillPostModal";
 import ConfirmModal from "../components/ConfirmModal";
+// import EditPostModal from "./EditPostModal";
+// import ConfirmModal from "./ConfirmModal";
+
 import { Link } from "react-router-dom";
 
 const SkillSharingFeed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
   const [showComments, setShowComments] = useState({});
   const [editingPost, setEditingPost] = useState(null);
   const { modalState, openModal, closeModal } = useConfirmModal();
@@ -28,6 +30,7 @@ const SkillSharingFeed = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
+    // fetch all posts when component mounts
     fetchPosts();
   }, []);
 
@@ -43,10 +46,6 @@ const SkillSharingFeed = () => {
       setLoading(false);
     }
   };
-
-  const filteredPosts = posts.filter((post) =>
-    post.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const handlePostCreated = () => {
     fetchPosts();
@@ -194,34 +193,9 @@ const SkillSharingFeed = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <div className="space-y-6">
       {/* Create Post Form */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <CreatePostForm onPostCreated={handlePostCreated} />
-      </motion.div>
-
-      {/* Search Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="relative"
-      >
-        <input
-          type="text"
-          placeholder="Search posts..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 bg-white bg-opacity-30 backdrop-blur-lg rounded-xl border border-white border-opacity-30 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-        />
-        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-          🔍
-        </div>
-      </motion.div>
+      <CreatePostForm onPostCreated={handlePostCreated} />
 
       {/* Posts Feed */}
       {loading ? (
@@ -233,7 +207,7 @@ const SkillSharingFeed = () => {
             transition={{ duration: 0.3 }}
           ></motion.div>
         </div>
-      ) : filteredPosts.length === 0 ? (
+      ) : posts.length === 0 ? (
         <motion.div
           className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-8 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -241,15 +215,15 @@ const SkillSharingFeed = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h3 className="text-xl font-medium text-gray-700 mb-2">
-            No posts found
+            No posts yet
           </h3>
           <p className="text-gray-600">
-            Try searching for something else or create a new post!
+            Be the first to share your skills and learning progress!
           </p>
         </motion.div>
       ) : (
         <AnimatePresence>
-          {filteredPosts.map((post, index) => (
+          {posts.map((post, index) => (
             <motion.div
               key={post.id}
               className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 overflow-hidden"
@@ -278,7 +252,7 @@ const SkillSharingFeed = () => {
                     )}
                   </div>
                   <div>
-                    <Link to={'/profile/${post.userId}'} target="_blank">
+                    <Link to={`/profile/${post.userId}`} target="_blank">
                       <h3 className="font-medium text-gray-800 hover:underline">
                         {post.userName}
                       </h3>
@@ -315,7 +289,7 @@ const SkillSharingFeed = () => {
               {/* Post Content */}
               <div className="p-4">
                 <p className="text-gray-800 mb-4">{post.description}</p>
-                {/* Media Content */}
+                {/*media Content */}
                 {post.mediaUrls && post.mediaUrls.length > 0 && (
                   <div
                     className={`grid gap-2 mb-4 ${
@@ -323,10 +297,12 @@ const SkillSharingFeed = () => {
                     }`}
                   >
                     {post.mediaUrls.map((urlString, index) => {
+                      //try to parse the media object from JSON
                       let mediaObject;
                       let isVideo = false;
                       let url = urlString;
 
+                      //try to parse as JSON first
                       try {
                         mediaObject = JSON.parse(urlString);
                         url = mediaObject.dataUrl;
@@ -360,48 +336,43 @@ const SkillSharingFeed = () => {
                     })}
                   </div>
                 )}
-
                 {/* Action Buttons */}
-                <div className="flex items-center space-x-4 mt-4">
+                <div className="flex justify-between items-center mt-2 pb-2 border-b border-gray-100 border-opacity-30">
                   <motion.button
-                    onClick={() => handleLike(post.id)}
-                    className={`flex items-center space-x-1 ${
-                      post.likes?.some((like) => like.userId === currentUser?.id)
+                    className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg transition-colors cursor-pointer  ${
+                      post.likes?.some(
+                        (like) => like.userId === currentUser?.id
+                      )
                         ? "text-red-500"
-                        : "text-gray-500 hover:text-red-500"
+                        : "text-gray-600 hover:bg-gray-100 hover:bg-opacity-30"
                     }`}
+                    onClick={() => handleLike(post.id)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Heart
-                      size={20}
-                      fill={
+                      size={18}
+                      className={
                         post.likes?.some(
                           (like) => like.userId === currentUser?.id
                         )
-                          ? "currentColor"
-                          : "none"
+                          ? "fill-red-500"
+                          : ""
                       }
                     />
                     <span>{post.likes?.length || 0}</span>
                   </motion.button>
 
                   <motion.button
-                    onClick={() =>
-                      setShowComments({
-                        ...showComments,
-                        [post.id]: !showComments[post.id],
-                      })
-                    }
-                    className="flex items-center space-x-1 text-gray-500 hover:text-blue-500"
+                    className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 hover:bg-opacity-30 transition-colors cursor-pointer"
+                    onClick={() => toggleComments(post.id)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <MessageSquare size={20} />
+                    <MessageSquare size={18} />
                     <span>{post.comments?.length || 0}</span>
                   </motion.button>
                 </div>
-
                 {/* Comments Section */}
                 <AnimatePresence>
                   {showComments[post.id] && (
