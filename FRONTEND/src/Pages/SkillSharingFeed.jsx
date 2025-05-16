@@ -134,7 +134,7 @@ const SkillSharingFeed = () => {
     }
   };
 
-  const toggleComments = (postId) => {
+
     setShowComments({
       ...showComments,
       [postId]: !showComments[postId],
