@@ -218,7 +218,7 @@ const SkillSharingFeed = () => {
             No posts yet
           </h3>
           <p className="text-gray-600">
-            Be the first to share your skills and learning progress!
+            Be the first to share your skills and learning progress...!
           </p>
         </motion.div>
       ) : (
